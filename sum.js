@@ -5,6 +5,11 @@
 
 // Take the arguments from the command-line
 const args = process.argv.slice(2);
+// Edge case: We need at least 2 arguments.
+if (args.length < 2) {
+  console.log("Error, please enter at least 2 arguments");
+  process.exit();
+}
 // validate => print it
 // console.log("args:", args);
 // Check to see if they are numbers or not
@@ -21,15 +26,22 @@ for (let arg of args) {
   // add them up
   // convert the arg into a number => typecasting
 
-  // If any argument is not a whole number, skip it.
-  // If any argument is not a number, output an error message.
-  
-  total += Number(arg); // total = total + Number(arg);
+  // Edge case: If any argument is not a whole number, skip it.
+  if (Number.isInteger(Number(arg))) {
+    total += Number(arg); // total = total + Number(arg);
 
-  console.log("arg", arg, "type of arg:", typeof arg);
+    console.log('arg', arg, 'type of arg:', typeof arg);
+  }
+  // Edge case: If any argument is not a number, output an error message.
+  if (isNaN(Number(arg))) {
+    console.log('Error, please enter only numbers');
+    // stop the execution of the script
+    //break? => stops the loop, but no the entire program
+    // return? // => output the value of a function, side effect: stop the function execution
+    // throw new Error()
+    process.exit(); 
+  }
 }
 
-
-
 // prints out the sum of them
-console.log("Total:", total)
+console.log('Total:', total);
